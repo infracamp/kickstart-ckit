@@ -4,9 +4,11 @@ LABEL   maintainer="Matthias Leuffen <m@tth.es>" \
         org.infracamp.flavor.name="${IMAGE_NAME}"
 
 ADD /kickstart /kickstart
+
+## Ignore ubuntu tools for now.
 RUN chmod -R 755 /kickstart \
-    && /kickstart/build/install-ubuntu-minimal.sh  \
-    && /kickstart/build/setup.sh \
+    && /kickstart/build/00-install-ubuntu-minimal.sh  \
+    && /kickstart/build/99-setup-user-rights.sh \
     && rm -rf /var/lib/apt/lists/*
 
 RUN /kickstart/lib/install-kicker.sh
@@ -19,8 +21,6 @@ RUN /kickstart/lib/install-kicker.sh
 # ENV DEV_UID "1000"
 # ENV DEV_TTYID "xXx"
 
-# Set from hub.docker.com
-ENV IMAGE_NAME "${IMAGE_NAME}"
 
 # Use for debugging:
 #ENTRYPOINT ["/bin/bash"]
