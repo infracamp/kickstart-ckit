@@ -5,10 +5,10 @@ LABEL   maintainer="Matthias Leuffen <m@tth.es>" \
 
 ADD /kickstart /kickstart
 
-## Ignore ubuntu tools for now.
+## Ignore ubuntu tools and other stuff for this image.
 RUN chmod -R 755 /kickstart \
-    && /kickstart/build/00-install-ubuntu-minimal.sh  \
-    && /kickstart/build/99-setup-user-rights.sh \
+    && /kickstart/build/ubuntu.d/00-install-ubuntu-minimal.sh  \
+    && /kickstart/build/ubuntu.d/99-setup-user-rights.sh \
     && rm -rf /var/lib/apt/lists/*
 
 RUN /kickstart/lib/install-kicker.sh
