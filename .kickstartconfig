@@ -1,0 +1,11 @@
+
+# Set the container-name to fix value
+CONTAINER_NAME=ckit
+
+
+# Don't pull from the internet
+OFFLINE_MODE=1
+KICKSTART_PORTS=""
+
+
+docker build --no-cache --pull -t $FROM_IMAGE .

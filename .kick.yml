@@ -1,0 +1,12 @@
+# Kickstart container config file - see https://gitub.com/c7lab/kickstart
+# Run ./kickstart.sh to start a development-container for this project
+version: 1
+from: "infracamp/kickstart-flavor-base:testing"
+
+env:
+  VIRTUAL_ENV: "/abc/$PATH"
+  PATH: "/some/path:$PATH"
+
+command:
+  test:
+    - bash test/selfcheck.sh
