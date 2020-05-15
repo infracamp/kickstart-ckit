@@ -4,7 +4,9 @@ LABEL   maintainer="Matthias Leuffen <m@tth.es>" \
         org.infracamp.flavor.name="${IMAGE_NAME}"
 
 ADD /kickstart /kickstart
-RUN chmod -R 755 /kickstart && env && /kickstart/build/base-install-ubuntu.sh && /kickstart/build/setup.sh
+RUN chmod -R 755 /kickstart \
+    && /kickstart/build/install-ubuntu-minimal.sh  \
+    && /kickstart/build/setup.sh
 
 RUN /kickstart/lib/install-kicker.sh
 
