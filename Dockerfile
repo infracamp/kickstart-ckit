@@ -26,5 +26,6 @@ RUN /kickstart/lib/install-kicker.sh
 #ENTRYPOINT ["/bin/bash"]
 
 ## Don't append standalone parameter - only in projects
+WORKDIR /opt
 ENTRYPOINT ["/kickstart/run/entrypoint.sh"]
 
