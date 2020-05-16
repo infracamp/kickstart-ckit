@@ -85,4 +85,4 @@ will not be updated.
 |------------------------------------|--------------------|---------|---------|
 | `nfra/kickstart-ckit:1.0`          | YES (1x per week)  | YES     | Use this for Production |
 | `nfra/kickstart-ckit:1.0-rc`       | YES daily          | NO      | Development preview     |
-| `nfra/kickstart-ckit:static-1.0.x` | NO (static image)  | YES     | Use if you perfer static images or want to compare with older versions |
+| `nfra/kickstart-ckit:static-1.0.x` | NO (static image)  | YES     | Use if you prefer static images or want to compare with older versions |
