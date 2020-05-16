@@ -62,3 +62,27 @@ ENTRYPOINT ["/kickstart/run/entrypoint.sh"]
   only if the container was run in interactive development mode. It is meant to activate
   debuggers or additional services, that should not be present in production.
   
+  
+  
+## Tags & Versions
+
+We don't like hard version breaks where you have to upgrade all you infrastructure at once.
+This is not microservice. Instead we use a versioned tagging approach that will keep also
+old versions alive and available.
+
+There is no `latest` nor `testing` tag on this image. The version has to be specified
+and will be updated only in case of backward compatibility.
+
+We will build a tested and stable version on the tag `1.0` at least once per week.
+
+If you prefer a stable version, use one of the versioned `static-x.x.x`. These images
+will not be updated.
+
+> We suggest to use the stable, regulary updated version `1.0`. It will stay 
+> backwards compatible during its lifetime. 
+
+| Image Version                      | Regular updates    | Stable  | Purpose |
+|------------------------------------|--------------------|---------|---------|
+| `nfra/kickstart-ckit:1.0`          | YES (1x per week)  | YES     | Use this for Production |
+| `nfra/kickstart-ckit:1.0-rc`       | YES daily          | NO      | Development preview     |
+| `nfra/kickstart-ckit:static-1.0.x` | NO (static image)  | YES     | Use if you perfer static images or want to compare with older versions |
