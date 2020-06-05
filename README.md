@@ -4,6 +4,9 @@ The container kit for building kickstart flavors. It contains the setup, entrypo
 and preinstalled `kicker` command. Just  `COPY --from=ckit /kickstart /kickstart` will extend
 your base container image with full kickstart-flavor functionality. 
 
+CKit offers a standarized entrypoint and the [kick](https://gighub.com/infracamp/kicker) command
+executor to easy configure and start services inside the container.
+
 ## TL;DR: Building containers
 
 ```dockerfile

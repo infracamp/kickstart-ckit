@@ -3,9 +3,9 @@
 set -Eeo pipefail
 
 sudo apt-get update
-sudo apt-get install -y php7.4-dev composer
+sudo apt-get install -y php7.4-dev composer wget
 
-curl https://www.php.net/distributions/php-7.4.6.tar.gz --output /tmp/php.tar.gz
+wget -o /tmp/php.tar.gz https://github.com/php/php-src/archive/php-7.4.6.tar.gz
 cd /tmp
 tar -xzf php.tar.gz
 cd php-7.4.6
@@ -13,3 +13,5 @@ cd php-7.4.6
 make
 
 cp sapi/cli/php /kickstart/bin/_kick_php
+
+rm -R /tmp/*
