@@ -15,4 +15,8 @@ make
 
 cp sapi/cli/php /kickstart/bin/_kick_php
 
+
+## Clean up after build
 rm -R /tmp/*
+sudo apt-get remove -y --purge php7.4-dev bison re2c
+sudo apt-get autoremove -y
