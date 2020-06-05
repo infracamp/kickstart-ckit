@@ -90,7 +90,16 @@ will not be updated.
 |------------------------------------|--------------------|---------|---------|--------|
 | `nfra/kickstart-ckit:1.0`          | YES (1x per week)  | YES     | Use this for Production                   | stable-1.0    |
 | `nfra/kickstart-ckit:1.0-rc`       | YES daily          | NO      | Development Release candidate (master)    | master        |
-| `nfra/kickstart-ckit:static-1.0.x` | NO (static image)  | YES     | Use if you prefer static images or want to compare with older versions | (tag) |
+| `nfra/kickstart-ckit:1.0.x`        | NO (static image)  | YES     | Use if you prefer static images or want to compare with older versions | (tag) |
+
+### Alternative Hardware Architectures
+
+Images for arm32v7 (RaspberryPi) platform:
+
+| Image Version                      | Regular updates    | Stable  | Purpose | Branch |
+|------------------------------------|--------------------|---------|---------|--------|
+| `nfra/kickstart-ckit:arm32v7-1.0`          | YES (1x per week)  | YES     | Use this for Production                   | stable-1.0    |
+| `nfra/kickstart-ckit:arm32v7-1.0.x` | NO (static image)  | YES     | Use if you prefer static images or want to compare with older versions | (tag) |
 
 
 ## Flavor Build modes
