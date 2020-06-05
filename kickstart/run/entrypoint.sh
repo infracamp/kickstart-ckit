@@ -224,5 +224,4 @@ else
     fi;
     colorText "Leaving container. Goodbye..." 32
     exit
-
 fi;
