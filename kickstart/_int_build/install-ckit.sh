@@ -25,5 +25,5 @@ composer create-project infracamp/kicker /kickstart/lib/kicker --no-dev
 
 ## Clean up after build
 rm -R /tmp/*
-sudo apt-get remove -y --purge php7.4-dev bison re2c composer
+sudo apt-get remove -y --purge php7.2-dev bison re2c composer
 sudo apt-get autoremove -y
