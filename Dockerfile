@@ -11,8 +11,6 @@ RUN chmod -R 755 /kickstart \
     && /kickstart/flavor/build.d/99-setup-user-rights.sh \
     && rm -rf /var/lib/apt/lists/*
 
-RUN /kickstart/_int_build/install-kicker.sh
-
 # ENV TIMEZONE Europe/Berlin
 # ENV SYSLOG_HOST ""
 #
