@@ -29,7 +29,7 @@ ENTRYPOINT ["/kickstart/run/entrypoint.sh"]
 > If you want to install software with `apt-get` or `npm` or `composer`. This stage
 > is the correct place to do it
 
-- [`/kickstart/build/ubuntu.d/`](kickstart/build/ubuntu.d): Installer directory for
+- [`/kickstart/build/ubuntu.d/`](kickstart/flavor/build.d): Installer directory for
   Ubuntu based containers. All scripts inside this directory will be executed when
   `RUN /kickstart/build/build-ubuntu.sh` is executed during build.
 
@@ -81,8 +81,56 @@ will not be updated.
 > We suggest to use the stable, regulary updated version `1.0`. It will stay 
 > backwards compatible during its lifetime. 
 
-| Image Version                      | Regular updates    | Stable  | Purpose |
-|------------------------------------|--------------------|---------|---------|
-| `nfra/kickstart-ckit:1.0`          | YES (1x per week)  | YES     | Use this for Production |
-| `nfra/kickstart-ckit:1.0-rc`       | YES daily          | NO      | Development preview     |
-| `nfra/kickstart-ckit:static-1.0.x` | NO (static image)  | YES     | Use if you prefer static images or want to compare with older versions |
+| Image Version                      | Regular updates    | Stable  | Purpose | Branch |
+|------------------------------------|--------------------|---------|---------|--------|
+| `nfra/kickstart-ckit:1.0`          | YES (1x per week)  | YES     | Use this for Production                   | stable-1.0    |
+| `nfra/kickstart-ckit:1.0-rc`       | YES daily          | NO      | Development Release candidate (master)    | master        |
+| `nfra/kickstart-ckit:static-1.0.x` | NO (static image)  | YES     | Use if you prefer static images or want to compare with older versions | (tag) |
+
+
+## Flavor Build modes
+
+### Requirements
+
+Kickstart included from docker image requires no additional libraries to run. Although is
+recommend to install at least `git` and `sudo`.
+
+### Project builds
+
+This is the default for kickstart-flavors: The flavor is used in a product. This
+product is build and deployed. - No Problemo
+
+### Flavor build
+
+Flavor builds just install some software, define start and stop scripts etc.
+
+But they are no own project. - No Problemo as well
+
+
+
+### SDK build
+
+A Sdk build includes both: New software to be installed plus a project plus this
+project is to be used by another project as well.
+
+So you want to use the full kickstart functionality for your sdk project as well
+as for your project. This is a little bit tricky. Because: which is the project,
+kick should run on? Which .kick.yml to interpret?
+
+- You want your sdk to be located in a different directory than /opt (normaly /sdk)
+
+- You can set the `KICK_PATH=/sdk:/opt`: This will include all the commands from the
+  both kick.yml files (except build section).
+  
+  
+## Environment variables
+
+| Variable Name | Default | Description |
+|---------------|---------|-------------|
+| WORKDIR       | /opt    | The workdir where the project is located |
+| TIMEZONE      | Europe/Berlin | The locale timezone                |
+| DEV_UID       | 1000    | The numeric uid of the developer (user will be adjusted to this id)  |
+| DEV_CONTAINER_NAME |    | The name to be presented on development time                         |
+
+
+

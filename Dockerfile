@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 LABEL   maintainer="Matthias Leuffen <m@tth.es>" \
         org.infracamp.flavor.tag="${DOCKER_TAG}" \
         org.infracamp.flavor.name="${IMAGE_NAME}"
@@ -7,11 +7,12 @@ ADD /kickstart /kickstart
 
 ## Ignore ubuntu tools and other stuff for this image.
 RUN chmod -R 755 /kickstart \
-    && /kickstart/build/ubuntu.d/00-install-ubuntu-minimal.sh  \
-    && /kickstart/build/ubuntu.d/99-setup-user-rights.sh \
+    && /kickstart/flavor/build.d/00-install-ubuntu-minimal.sh  \
+    && /kickstart/_int_build/update-php.sh \
+    && /kickstart/flavor/build.d/99-setup-user-rights.sh \
     && rm -rf /var/lib/apt/lists/*
 
-RUN /kickstart/lib/install-kicker.sh
+RUN /kickstart/_int_build/install-kicker.sh
 
 # ENV TIMEZONE Europe/Berlin
 # ENV SYSLOG_HOST ""

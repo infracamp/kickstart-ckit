@@ -1,3 +1,3 @@
 #!/bin/bash
 
-PATH="/opt/bin:/home/user/.composer/vendor/bin:/opt/node_modules/.bin:$PATH"
+PATH="$WORKDIR/bin:/home/user/.composer/vendor/bin:$WORKDIR/node_modules/.bin:$PATH"

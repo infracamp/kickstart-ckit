@@ -8,18 +8,20 @@
 #
 #
 
-
-set -e
-set -o pipefail
+# Trigger errors on failure (see https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/)
+set -Eeo pipefail
 trap 'on_error $LINENO' ERR;
+
 PROGNAME=$(basename $0)
 __DIR__=$(dirname $0)
 
 ## Include Libraries
 . $__DIR__/_inc/logging.sh
 
+info "Entrypoint location '$0'";
+
 function on_error () {
-    emergency "Error: $progname on line $1";
+    emergency "Error: ${PROGNAME} on line $1";
     echo "Error: ${PROGNAME} on line $1" 1>&2
     echo "(Run './kickstart.sh :debug-shell' or './kickstart.sh :debug' to investigate the error)" 1>&2
     exit 1
@@ -28,15 +30,20 @@ function on_error () {
 function run_dir () {
     local dir="$1/*.sh";
     local origLogname=$LOGNAME
+    local origProgName=$PROGNAME
 
     for file in $dir
     do
         local LOGNAME=$origLogname
+
         debug " + Exec '$file'"
 
         local LOGNAME=$(basename $file)
+        local PROGNAME=${LOGNAME}
         . $file
     done
+    PROGNAME=${origProgName}
+    LOGNAME=${origLogname}
 }
 
 # Only in production mode: callback for SIGTERM
@@ -47,10 +54,17 @@ function on_sigterm () {
     exit 0
 }
 
-
+if [ "$WORKDIR" = "" ]
+then
+    WORKDIR="/opt"
+fi;
 
 colorText "   >>   KICKSTART FLAVOR CONTAINER :: infracamp.org   <<   " 97 104
-info "Date: $(date), DevUID: '$DEV_UID', ProjectName: '$DEV_CONTAINER_NAME', Parameters: '$@'"
+info "Date: $(date), DevUID: '$DEV_UID', WorkDir: '$WORKDIR', ProjectName: '$DEV_CONTAINER_NAME', Parameters: '$@'"
+
+## Set kickstart bin as path (otherwise kick isn't found)
+PATH=/kickstart/bin:$PATH
+
 
 
 if [ "$1" = "debug" ] || [ "$2" = "debug" ]
@@ -69,9 +83,9 @@ then
     exit;
 fi;
 
-if [ -z "$(ls -A /opt)" ];
+if [ -z "$(ls -A $WORKDIR)" ];
 then
-   emergency " ERROR! /opt is empty!"
+   emergency " ERROR! $WORKDIR is empty!"
    emergency "This normally means, your ci configuration is incorrect. Please see the manual."
    emergency "To investigate this issue, you can run ./kickstart.sh :debug"
    echo ""
@@ -81,14 +95,13 @@ then
    exit 10
 fi
 
-## Set kickstart bin as path (otherwise kick isn't found)
-PATH=/kickstart/bin:$PATH
+
 
 info "Running '$__DIR__/prepare.d/' scripts"
 run_dir $__DIR__/prepare.d
 
-info "Changing work dir to /opt"
-cd /opt
+info "Changing work dir to $WORKDIR"
+cd $WORKDIR
 
 if [ "$1" == "standalone" ]
 then
@@ -199,13 +212,17 @@ else
     colorText "      [[--  KICKSTART DEVELOPMENT MODE  --]]      " 97 46
     colorText "                            happy developing      " 97 46
     echo "";
-    colorText "Container ready..." 32
+
 
     if [ "$RUN_SHELL" == "1" ]
     then
+        # RUN BASH
+        # Ignore return code of bash (so last triggered error wont trigger kickstart error on exit)
+        set +Eeo pipefail
+        trap - ERR;
         sudo -E -s -u user /bin/bash
     fi;
-    echo "You are now leaving the container. Goodbye."
+    colorText "Leaving container. Goodbye..." 32
     exit
 
 fi;
