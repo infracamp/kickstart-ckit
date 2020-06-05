@@ -7,8 +7,7 @@ ADD /kickstart /kickstart
 
 ## Ignore ubuntu tools and other stuff for this image.
 RUN chmod -R 755 /kickstart \
-    && /kickstart/flavor/build.d/00-install-ubuntu-minimal.sh  \
-    && /kickstart/_int_build/update-php.sh \
+    && /kickstart/_int_build/install-ckit.sh \
     && /kickstart/flavor/build.d/99-setup-user-rights.sh \
     && rm -rf /var/lib/apt/lists/*
 
