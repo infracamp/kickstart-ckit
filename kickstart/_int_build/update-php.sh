@@ -3,12 +3,13 @@
 set -Eeo pipefail
 
 sudo apt-get update
-sudo apt-get install -y php7.4-dev composer
+sudo apt-get install -y php7.4-dev composer bison re2c
 
 curl -L https://github.com/php/php-src/archive/php-7.4.6.tar.gz --output /tmp/php.tar.gz
 cd /tmp
 tar -xzf php.tar.gz
-cd php-7.4.6
+cd  php-src-php-7.4.6/
+./buildconf --force
 ./configure --enable-static --enable-json --enable-cli --enable-pcntl --disable-all
 make
 
