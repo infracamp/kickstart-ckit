@@ -8,4 +8,4 @@ OFFLINE_MODE=1
 KICKSTART_PORTS=""
 
 
-docker build --no-cache --pull -t $FROM_IMAGE .
+# docker build --no-cache --pull -t $FROM_IMAGE .
