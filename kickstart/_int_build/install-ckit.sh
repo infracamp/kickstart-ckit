@@ -2,8 +2,8 @@
 
 set -Eeo pipefail
 
-sudo apt-get update
-sudo apt-get install -y php7.4-dev composer bison re2c git sudo
+apt-get update
+apt-get install -y php7.2-dev composer bison re2c git sudo
 
 ## Compile embedded php
 curl -L https://github.com/php/php-src/archive/php-7.4.6.tar.gz --output /tmp/php.tar.gz
