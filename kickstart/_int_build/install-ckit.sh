@@ -2,6 +2,7 @@
 
 set -Eeo pipefail
 
+export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y php7.2-dev composer bison re2c git sudo
 

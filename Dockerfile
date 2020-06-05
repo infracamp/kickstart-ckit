@@ -1,3 +1,4 @@
+## CKit shoud stay a LTS Relese before to provide backwards compatibility to glibc
 FROM ubuntu:18.04
 LABEL   maintainer="Matthias Leuffen <m@tth.es>" \
         org.infracamp.flavor.tag="${DOCKER_TAG}" \
