@@ -6,6 +6,8 @@ LABEL   maintainer="Matthias Leuffen <m@tth.es>" \
 
 ADD /kickstart /kickstart
 
+RUN ls -la /
+
 ## Ignore ubuntu tools and other stuff for this image.
 RUN chmod -R 755 /kickstart \
     && ls -l /kickstart \
