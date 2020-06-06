@@ -4,13 +4,14 @@ LABEL   maintainer="Matthias Leuffen <m@tth.es>" \
         org.infracamp.flavor.tag="${DOCKER_TAG}" \
         org.infracamp.flavor.name="${IMAGE_NAME}"
 
+# ARM32v7 specific: Make compatible with x86
+COPY qemu-arm-static /usr/bin/qemu-arm-static
+
 ADD /kickstart /kickstart
 
-RUN ls -la /
 
 ## Ignore ubuntu tools and other stuff for this image.
 RUN chmod -R 755 /kickstart \
-    && ls -l /kickstart \
     && /kickstart/_int_build/install-ckit.sh \
     && /kickstart/flavor/build.d/99-setup-user-rights.sh \
     && rm -rf /var/lib/apt/lists/*
