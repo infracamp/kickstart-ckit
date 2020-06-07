@@ -1,7 +1,7 @@
 # Kickstart container config file - see https://gitub.com/c7lab/kickstart
 # Run ./kickstart.sh to start a development-container for this project
 version: 1
-from: "infracamp/kickstart-flavor-base:testing"
+from: "local/ckit"
 
 env:
   VIRTUAL_ENV: "/abc/$PATH"
@@ -9,4 +9,4 @@ env:
 
 command:
   test:
-    - "echo ok"
+    - "echo 'ok'"

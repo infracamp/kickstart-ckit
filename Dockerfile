@@ -1,4 +1,5 @@
-FROM ubuntu:20.04
+## CKit shoud stay a LTS Relese before to provide backwards compatibility to glibc
+FROM ubuntu:18.04
 LABEL   maintainer="Matthias Leuffen <m@tth.es>" \
         org.infracamp.flavor.tag="${DOCKER_TAG}" \
         org.infracamp.flavor.name="${IMAGE_NAME}"
@@ -7,12 +8,9 @@ ADD /kickstart /kickstart
 
 ## Ignore ubuntu tools and other stuff for this image.
 RUN chmod -R 755 /kickstart \
-    && /kickstart/flavor/build.d/00-install-ubuntu-minimal.sh  \
-    && /kickstart/_int_build/update-php.sh \
+    && /kickstart/_int_build/install-ckit.sh \
     && /kickstart/flavor/build.d/99-setup-user-rights.sh \
     && rm -rf /var/lib/apt/lists/*
-
-RUN /kickstart/_int_build/install-kicker.sh
 
 # ENV TIMEZONE Europe/Berlin
 # ENV SYSLOG_HOST ""

@@ -1,8 +1,13 @@
 # kickstart-ckit
 
+[infracamp.org](https://infracamp.org) | [github page](https://github.com/infracamp/kickstart-ckit)
+
 The container kit for building kickstart flavors. It contains the setup, entrypoint scripts
 and preinstalled `kicker` command. Just  `COPY --from=ckit /kickstart /kickstart` will extend
 your base container image with full kickstart-flavor functionality. 
+
+CKit offers a standarized entrypoint and the [kick](https://gighub.com/infracamp/kicker) command
+executor to easy configure and start services inside the container.
 
 ## TL;DR: Building containers
 
@@ -85,7 +90,16 @@ will not be updated.
 |------------------------------------|--------------------|---------|---------|--------|
 | `nfra/kickstart-ckit:1.0`          | YES (1x per week)  | YES     | Use this for Production                   | stable-1.0    |
 | `nfra/kickstart-ckit:1.0-rc`       | YES daily          | NO      | Development Release candidate (master)    | master        |
-| `nfra/kickstart-ckit:static-1.0.x` | NO (static image)  | YES     | Use if you prefer static images or want to compare with older versions | (tag) |
+| `nfra/kickstart-ckit:1.0.x`        | NO (static image)  | YES     | Use if you prefer static images or want to compare with older versions | (tag) |
+
+### Alternative Hardware Architectures
+
+Images for arm32v7 (e.g. RaspberryPi) platform:
+
+| Image Version                      | Regular updates    | Stable  | Purpose | Branch |
+|------------------------------------|--------------------|---------|---------|--------|
+| `nfra/kickstart-ckit:arm32v7-1.0`          | YES (1x per week)  | YES     | Use this for Production                   | stable-1.0    |
+| `nfra/kickstart-ckit:arm32v7-1.0.x` | NO (static image)  | YES     | Use if you prefer static images or want to compare with older versions | (tag) |
 
 
 ## Flavor Build modes
