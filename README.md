@@ -94,7 +94,7 @@ will not be updated.
 
 ### Alternative Hardware Architectures
 
-Images for arm32v7 (RaspberryPi) platform:
+Images for arm32v7 (e.g. RaspberryPi) platform:
 
 | Image Version                      | Regular updates    | Stable  | Purpose | Branch |
 |------------------------------------|--------------------|---------|---------|--------|
